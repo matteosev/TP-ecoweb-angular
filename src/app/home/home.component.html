@@ -2,6 +2,19 @@
   <h1 class="title">conduit</h1>
   <p class="description">A place to share your knowledge</p>
 </div>
+
+<div>
+  <video muted autoplay loop playsinline controls preload="auto">
+    <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_30MB.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <style>
+    video {
+      margin-top: 20vh;
+      width: 100%;
+    }
+  </style>
+</div>
 <div
   class="news-feed row"
   [style.marginTop]="!isAuthenticated() ? '232px' : ''"
