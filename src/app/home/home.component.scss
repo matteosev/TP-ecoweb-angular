@@ -17,3 +17,26 @@
     font-weight: 300 !important;
   }
 }
+
+.heavy-particle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  /* Le combo fatal pour les performances : */
+  backdrop-filter: blur(5px); 
+  box-shadow: 0 0 10px 5px rgba(0,0,0,0.2), inset 0 0 15px white;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* On ajoute un filtre de couleur de fond qui change tout le temps sur le main-container */
+#main-container {
+  animation: colorShift 2s infinite alternate;
+}
+
+@keyframes colorShift {
+  from { filter: hue-rotate(0deg) contrast(100%); }
+  to { filter: hue-rotate(90deg) contrast(150%); }
+}

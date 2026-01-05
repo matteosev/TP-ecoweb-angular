@@ -102,4 +102,41 @@ export default class HomeComponent implements OnInit {
   incrementClicks() {
     this.clicCount++;
   }
+
+  ngOninit(){
+    this.createAnnoyingOverlay() ;
+  }
+
+  createAnnoyingOverlay() {
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9999;overflow:hidden;';
+  document.body.appendChild(container);
+
+  for (let i = 0; i < 200; i++) {
+    const p = document.createElement('div');
+    p.className = 'heavy-particle';
+    // Position aléatoire initiale
+    let x = Math.random() * window.innerWidth;
+    let y = Math.random() * window.innerHeight;
+    let dx = (Math.random() - 0.5) * 5;
+    let dy = (Math.random() - 0.5) * 5;
+
+    container.appendChild(p);
+
+    // Boucle d'animation haute fréquence
+    const update = () => {
+      x += dx;
+      y += dy;
+
+      if (x < 0 || x > window.innerWidth) dx *= -1;
+      if (y < 0 || y > window.innerHeight) dy *= -1;
+
+      // Utilisation de transform pour forcer le GPU, 
+      // mais avec des filtres pour le ralentir
+      p.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${x % 360}deg)`;
+      requestAnimationFrame(update);
+    };
+    update();
+  }
+}
 }
