@@ -2,33 +2,39 @@
   <h1 class="title">conduit</h1>
   <p class="description">A place to share your knowledge</p>
 </div>
-
-<div>
-  <video muted autoplay loop playsinline controls preload="auto">
-    <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_30MB.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  <style>
-    video {
-      margin-top: 20vh;
-      width: 100%;
-    }
-  </style>
+<div *ngIf="clicCount < 3" class="unlock-container">
+  <h2>Veuillez déverrouiller le contenu ({{clicCount}}/3)</h2>
+  
+  <button (click)="incrementClicks()" [disabled]="clicCount >= 1">Bouton 1</button>
+  <button (click)="incrementClicks()" [disabled]="clicCount < 1 || clicCount >= 2">Bouton 2</button>
+  <button (click)="incrementClicks()" [disabled]="clicCount < 2">Bouton 3</button>
 </div>
-<div
-  class="news-feed row"
-  [style.marginTop]="!isAuthenticated() ? '232px' : ''"
->
-  <div class="col-9">
-    <app-feed-toggle (toggleFeed)="toggleFeed($event)"></app-feed-toggle>
-    <app-article-list (toggleFavorite)="toggleFavorite($event)" [articleList]="articleList"></app-article-list>
+
+<div id="main-container" *ngIf="clicCount >= 3">
+  <div>
+    <video muted autoplay loop playsinline controls preload="auto">
+      <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_30MB.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+    </video>
+    <style>
+      video { width: 100%; }
+      .unlock-container { text-align: center; padding: 50px; }
+      button { margin: 10px; padding: 10px 20px; cursor: pointer; }
+    </style>
+  </div>
+
+  <div class="news-feed row" [style.marginTop]="!isAuthenticated() ? '232px' : ''">
+    <div class="col-9">
+      <app-feed-toggle (toggleFeed)="toggleFeed($event)"></app-feed-toggle>
+      <app-article-list (toggleFavorite)="toggleFavorite($event)" [articleList]="articleList"></app-article-list>
     <app-pagination
       [totalCount]="articleCount"
       [offset]="currentOffset"
       (offsetChange)="onPageOffsetChange($event)"
     ></app-pagination>
-  </div>
-  <div class="col-3">
-    <app-tags (selectTag)="selectTag($event)"></app-tags>
+      </div>
+    <div class="col-3">
+      <app-tags (selectTag)="selectTag($event)"></app-tags>
+    </div>
   </div>
 </div>

@@ -73,4 +73,10 @@ export default class HomeComponent implements OnInit {
   toggleFavorite(article: Article): void {
     this.#homeStore.toggleFavorite(article);
   }
+
+  clicCount: number = 0;
+
+  incrementClicks() {
+    this.clicCount++;
+  }
 }
